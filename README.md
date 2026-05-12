@@ -10,3 +10,7 @@ b. URL "amqp://guest:guest@localhost:5672" digunakan untuk menghubungkan publish
 # Sending and Processing Event
 ![Consoles](/assets/images/Consoles.png)
 Ketika publisher dijalankan menggunakan perintah cargo run, publisher akan mengirimkan 5 event ke RabbitMQ. Event tersebut kemudian masuk ke queue dengan nama "user_created". Subscriber yang sebelumnya sudah berjalan akan mendengarkan queue tersebut dan memproses setiap event yang masuk. Pada console subscriber terlihat bahwa setiap message berhasil diterima dan ditampilkan menggunakan println!. Hal ini menunjukkan bahwa komunikasi antara publisher, RabbitMQ, dan subscriber berjalan dengan baik. Ini merupakan konsep event-driven architecture di mana aplikasi dapat saling berkomunikasi secara asynchronous menggunakan message broker.
+
+# Monitoring Chart Based on Publisher
+![Chart](/assets/images/Chart.png)
+Saat publisher dijalankan berkali-kali, RabbitMQ menunjukkan adanya spike pada grafik message rate. Spike tersebut terjadi karena publisher mengirim banyak event dalam waktu singkat ke message broker. RabbitMQ kemudian menyimpan event tersebut di dalam queue sebelum diproses oleh subscriber. Semakin sering publisher dijalankan, semakin tinggi spike yang terlihat pada dashboard RabbitMQ. Setelah subscriber mulai memproses event, jumlah queue akan perlahan menurun kembali. Dari hasil pengamatan ini, saya memahami bahwa RabbitMQ dapat membantu menangani lonjakan traffic dengan menyimpan message sementara hingga subscriber siap memprosesnya.
