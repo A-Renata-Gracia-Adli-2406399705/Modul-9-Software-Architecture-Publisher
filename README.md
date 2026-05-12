@@ -4,5 +4,9 @@ a. Dalam satu kali program publisher dijalankan, program akan mengirimkan 5 even
 
 b. URL "amqp://guest:guest@localhost:5672" digunakan untuk menghubungkan publisher ke RabbitMQ sebagai message broker. Bagian "amqp" menunjukkan bahwa protokol yang digunakan adalah AMQP atau Advanced Message Queuing Protocol. Username dan password yang digunakan pada tutorial ini adalah "guest" dan "guest", yang merupakan default credential dari RabbitMQ. Host "localhost" berarti RabbitMQ berjalan di komputer lokal yang sama dengan aplikasi publisher dan subscriber. Sementara itu, port 5672 merupakan port standar yang digunakan RabbitMQ untuk komunikasi AMQP. Karena publisher dan subscriber menggunakan URL yang sama, keduanya dapat terhubung ke broker yang sama dan saling bertukar event melalui queue yang tersedia.
 
-# Preparing Message Broker (RabbitMQ)
+# Running Message Broker (RabbitMQ)
 ![RabbitMQ](/assets/images/RabbitMQ.png)
+
+# Sending and Processing Event
+![Consoles](/assets/images/Consoles.png)
+Ketika publisher dijalankan menggunakan perintah cargo run, publisher akan mengirimkan 5 event ke RabbitMQ. Event tersebut kemudian masuk ke queue dengan nama "user_created". Subscriber yang sebelumnya sudah berjalan akan mendengarkan queue tersebut dan memproses setiap event yang masuk. Pada console subscriber terlihat bahwa setiap message berhasil diterima dan ditampilkan menggunakan println!. Hal ini menunjukkan bahwa komunikasi antara publisher, RabbitMQ, dan subscriber berjalan dengan baik. Ini merupakan konsep event-driven architecture di mana aplikasi dapat saling berkomunikasi secara asynchronous menggunakan message broker.
